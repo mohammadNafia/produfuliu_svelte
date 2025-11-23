@@ -1,0 +1,491 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  
+  /* Black & White Color Palette */
+  --flow-black: #000000;
+  --flow-charcoal: #0C0C0C;
+  --flow-charcoal-light: #0D0D0D;
+  --flow-charcoal-lighter: #101010;
+  
+  --flow-white: #FFFFFF;
+  --flow-white-dim: #E5E5E5;
+  --flow-white-soft: #CCCCCC;
+  
+  --flow-text-primary: #FFFFFF;
+  --flow-text-secondary: #CCCCCC;
+  
+  /* Glassmorphism - 10-15% opacity */
+  --flow-glass-bg: rgba(12, 12, 12, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: 
+    radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.02), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.02), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.01), transparent 60%),
+    var(--flow-charcoal);
+  background-attachment: fixed;
+  color: var(--flow-text-primary);
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+section {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Flow Glassmorphism Card */
+.simple-card {
+  position: relative;
+  background: var(--flow-glass-bg);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid transparent;
+  padding: 28px;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.4),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+}
+
+.simple-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--flow-white-soft), var(--flow-white-dim), var(--flow-white));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.4;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+  animation: flow-gradient-shift 5s ease infinite;
+}
+
+.simple-card:hover::before {
+  opacity: 0.75;
+}
+
+.simple-card::after {
+  content: '';
+  position: absolute;
+  inset: -50% auto auto 30%;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08), transparent 70%);
+  filter: blur(50px);
+  opacity: 0.4;
+  pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.simple-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 
+    0 16px 64px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 0 80px rgba(255, 255, 255, 0.02);
+}
+
+.simple-card:hover::after {
+  opacity: 0.6;
+}
+
+/* Flow Neon Gradient Button */
+.simple-btn {
+  position: relative;
+  background: transparent;
+  color: var(--flow-text-primary);
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  isolation: isolate;
+}
+
+.simple-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--flow-white-soft), var(--flow-white-dim), var(--flow-white));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 1;
+  animation: flow-gradient-shift 4s ease infinite;
+  z-index: -1;
+}
+
+.simple-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.12));
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+}
+
+.simple-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  color: var(--flow-text-primary);
+}
+
+.simple-btn:hover::after {
+  opacity: 1;
+}
+
+.simple-btn:hover::before {
+  animation-duration: 2s;
+}
+
+/* Flow Badge with Gradient Border */
+.badge-pill {
+  position: relative;
+  display: inline-block;
+  background: rgba(12, 12, 12, 0.4);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--flow-text-primary);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+
+.badge-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--flow-white-soft), var(--flow-white-dim), var(--flow-white));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.4;
+  z-index: -1;
+  animation: flow-gradient-shift 4s ease infinite;
+}
+
+.badge-pill:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px) scale(1.02);
+}
+
+.badge-pill:hover::before {
+  opacity: 0.7;
+  animation-duration: 2.5s;
+}
+
+.hover-scale {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-scale:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 
+    0 16px 48px rgba(255, 255, 255, 0.15),
+    0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.sections-grid {
+  display: grid;
+  gap: 24px;
+  margin-top: 40px;
+  margin-bottom: 64px;
+}
+
+@media (min-width: 1024px) {
+  .sections-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+}
+
+.tile {
+  width: 100%;
+}
+
+.span-2 {
+  grid-column: span 2;
+}
+
+.section-shell {
+  width: 100%;
+}
+
+.splash-hero {
+  position: relative;
+  min-height: 85vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 0 1.25rem;
+}
+
+.splash-overlay {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.06), transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.06), transparent 50%);
+  filter: blur(60px);
+  opacity: 0.6;
+}
+
+.splash-content {
+  position: relative;
+  max-width: 900px;
+  display: grid;
+  gap: 24px;
+  align-items: center;
+  justify-items: center;
+  padding: 56px 48px;
+  border-radius: 28px;
+  background: var(--flow-glass-bg);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid transparent;
+  box-shadow: 
+    0 24px 72px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03);
+  animation: flow-illuminate 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.splash-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--flow-white-soft), var(--flow-white-dim), var(--flow-white));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.4;
+  z-index: -1;
+  animation: flow-gradient-shift 5s ease infinite;
+}
+
+@keyframes flow-illuminate {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.scroll-indicator {
+  display: flex;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.scroll-indicator .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--flow-white-soft), var(--flow-white));
+  animation: pulse 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.4);
+}
+
+.scroll-indicator .dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.scroll-indicator .dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-8px) scale(1.15);
+    opacity: 1;
+  }
+}
+
+/* Flow Gradient Animation */
+@keyframes flow-gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Flow Gradient Border Utility - Black & White */
+.flow-gradient-border {
+  position: relative;
+  border: 1px solid transparent;
+}
+
+.flow-gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--flow-white-soft), var(--flow-white-dim), var(--flow-white));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.4;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+  animation: flow-gradient-shift 5s ease infinite;
+}
+
+.flow-gradient-border:hover::before {
+  opacity: 0.6;
+  animation-duration: 3s;
+}
+
+/* Flow Image Gradient Border - Black & White */
+.flow-img-border {
+  position: relative;
+  border: 1px solid transparent;
+}
+
+.flow-img-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--flow-white-soft), var(--flow-white-dim), var(--flow-white));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.4;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+  animation: flow-gradient-shift 5s ease infinite;
+  pointer-events: none;
+}
+
+.flow-img-border:hover::before {
+  opacity: 0.6;
+  animation-duration: 3s;
+}
+
+/* Flow Input Gradient Border - Black & White */
+.flow-input-border {
+  position: relative;
+  border: 1px solid transparent;
+}
+
+.flow-input-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--flow-white-soft), var(--flow-white-dim), var(--flow-white));
+  background-size: 200% 200%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0.3;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: -1;
+  animation: flow-gradient-shift 5s ease infinite;
+}
+
+.flow-input-border:focus::before {
+  opacity: 0.5;
+  animation-duration: 3s;
+}
+
+/* Flow Border Top/Bottom - Black & White */
+.flow-border-t {
+  position: relative;
+  border-top: 1px solid transparent;
+}
+
+.flow-border-t::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--flow-white-soft), var(--flow-white-dim), var(--flow-white));
+  background-size: 200% 100%;
+  opacity: 0.4;
+  animation: flow-gradient-shift 5s ease infinite;
+}
+
+.flow-border-b {
+  position: relative;
+  border-bottom: 1px solid transparent;
+}
+
+.flow-border-b::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--flow-white-soft), var(--flow-white-dim), var(--flow-white));
+  background-size: 200% 100%;
+  opacity: 0.4;
+  animation: flow-gradient-shift 5s ease infinite;
+}
